@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180706200930) do
+ActiveRecord::Schema.define(version: 20180706211808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "addr1"
+    t.string   "addr2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country"
+    t.string   "hash_id"
+    t.jsonb    "settings",   default: "{}", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["hash_id"], name: "index_accounts_on_hash_id", using: :btree
+    t.index ["settings"], name: "index_accounts_on_settings", using: :gin
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
